@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjt7ia2io1250"]
+
+[ext_resource type="Script" path="res://Components/DetectionAreaComponent/detection_area_component.gd" id="1_b4tfy"]
+
+[node name="DetectionAreaComponent" type="Area2D"]
+script = ExtResource("1_b4tfy")
+groupsToDetect = Array[String](["Enemy"])
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

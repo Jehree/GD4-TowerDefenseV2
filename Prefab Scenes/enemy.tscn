@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://ccns2yrv4ua5p"]
+
+[ext_resource type="Texture2D" uid="uid://eufwu1xsqs3g" path="res://Sprites/enemy.png" id="1_tj5en"]
+[ext_resource type="PackedScene" uid="uid://go1xnf3ogcov" path="res://Components/PathMoveComponent/PathMoveComponent.tscn" id="2_sos7w"]
+[ext_resource type="PackedScene" uid="uid://b1bgk1u3choko" path="res://Components/HealthComponent/HealthComponent.tscn" id="3_d6ame"]
+[ext_resource type="PackedScene" uid="uid://1h31ew5mlc1" path="res://Components/Debug/DebugHealthUIComponent/DebugHealthUI.tscn" id="4_6t7o3"]
+[ext_resource type="PackedScene" uid="uid://bggakt5tct4il" path="res://Components/Debug/DebugDamageComponent/DebugDamageComponent.tscn" id="4_si7oa"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oy2r8"]
+radius = 18.0
+height = 62.0
+
+[node name="EnemyPathFollow2D" type="PathFollow2D" groups=["Enemy"]]
+rotates = false
+loop = false
+
+[node name="Enemy" type="Node2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Enemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Area2D"]
+position = Vector2(-1, 19)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_oy2r8")
+
+[node name="PathMoveComponent" parent="Enemy" instance=ExtResource("2_sos7w")]
+
+[node name="HealthComponent" parent="Enemy" node_paths=PackedStringArray("debugHealthUILabel") instance=ExtResource("3_d6ame")]
+maxHealth = 3
+debugHealthUILabel = NodePath("../DebugHealthUI")
+
+[node name="DebugDamageComponent" parent="Enemy" node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_si7oa")]
+healthComponent = NodePath("../HealthComponent")
+
+[node name="DebugHealthUI" parent="Enemy" instance=ExtResource("4_6t7o3")]
+
+[node name="EnemySprite" type="Sprite2D" parent="Enemy"]
+texture_filter = 1
+texture_repeat = 1
+scale = Vector2(4, 4)
+texture = ExtResource("1_tj5en")

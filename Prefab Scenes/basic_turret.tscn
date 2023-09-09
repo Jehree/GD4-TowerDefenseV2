@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://ci2mdjrxeqko1"]
+
+[ext_resource type="PackedScene" uid="uid://cjt7ia2io1250" path="res://Components/DetectionAreaComponent/DetectionAreaComponent.tscn" id="1_jntw8"]
+[ext_resource type="Texture2D" uid="uid://cg46g73crgrwe" path="res://Sprites/turret base.png" id="2_fto28"]
+[ext_resource type="PackedScene" uid="uid://chpvfsl7u7vjc" path="res://Components/TargetAcquisitionComponent/TargetAcquisitionComponent.tscn" id="3_6h7n0"]
+[ext_resource type="Texture2D" uid="uid://csvnjbb835v6" path="res://Sprites/turret gun.png" id="3_ve3hw"]
+[ext_resource type="Script" path="res://Components/Debug/DebugTargetedEnemyCountUI/debug_detected_enemy_count_component.gd" id="4_0ciko"]
+[ext_resource type="Script" path="res://Components/RotateToTargetComponent/rotate_to_target_component.gd" id="6_4hhfd"]
+[ext_resource type="PackedScene" uid="uid://bpetjcrnwg7ct" path="res://Components/EntityTrackerComponent/TargetTrackerComponent.tscn" id="6_y0x70"]
+[ext_resource type="PackedScene" uid="uid://brapwt0stbta8" path="res://Components/TurretGunControllerComponent/TurretGunControllerComponent.tscn" id="7_x5axh"]
+[ext_resource type="Script" path="res://Prefab Scenes/basic_turret_gun.gd" id="8_xtsvk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bkdkl"]
+radius = 145.0
+
+[node name="BasicTurret" type="Node2D"]
+
+[node name="DebugTargetEnemyCount" type="Label" parent="." node_paths=PackedStringArray("detectionAreaComponent")]
+offset_left = -53.0
+offset_top = 25.0
+offset_right = 65.0
+offset_bottom = 51.0
+text = "# of Enemies: 0"
+script = ExtResource("4_0ciko")
+detectionAreaComponent = NodePath("../DetectionAreaComponent")
+
+[node name="DetectionAreaComponent" parent="." instance=ExtResource("1_jntw8")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionAreaComponent"]
+shape = SubResource("CircleShape2D_bkdkl")
+
+[node name="TurretBaseSprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+scale = Vector2(3, 3)
+texture = ExtResource("2_fto28")
+
+[node name="TargetAcquisitionComponent" parent="." node_paths=PackedStringArray("detectionAreaComponent") instance=ExtResource("3_6h7n0")]
+detectionAreaComponent = NodePath("../DetectionAreaComponent")
+
+[node name="TargetTrackerComponent" parent="." node_paths=PackedStringArray("targetAcquisitionComponent") instance=ExtResource("6_y0x70")]
+targetAcquisitionComponent = NodePath("../TargetAcquisitionComponent")
+
+[node name="RotateToTargetComponent" type="Node2D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("6_4hhfd")
+turnSpeed = 5.0
+target = NodePath("../TargetTrackerComponent")
+
+[node name="TurretGunControllerComponent" parent="RotateToTargetComponent" node_paths=PackedStringArray("turretGun", "targetTrackerComponent", "rotateToTargetComponent") instance=ExtResource("7_x5axh")]
+turretGun = NodePath("../BasicTurretGun")
+targetTrackerComponent = NodePath("../../TargetTrackerComponent")
+rotateToTargetComponent = NodePath("..")
+aimOffsetToFire = 1.0
+
+[node name="BasicTurretGun" type="Node2D" parent="RotateToTargetComponent"]
+script = ExtResource("8_xtsvk")
+
+[node name="TurretGunSprite2D" type="Sprite2D" parent="RotateToTargetComponent/BasicTurretGun"]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(9, 0)
+rotation = 1.57079
+scale = Vector2(3, 3)
+texture = ExtResource("3_ve3hw")
+
+[node name="FireCooldownTimer" type="Timer" parent="RotateToTargetComponent/BasicTurretGun"]
+one_shot = true
+
+[connection signal="timeout" from="RotateToTargetComponent/BasicTurretGun/FireCooldownTimer" to="RotateToTargetComponent/BasicTurretGun" method="_on_fire_cooldown_timer_timeout"]

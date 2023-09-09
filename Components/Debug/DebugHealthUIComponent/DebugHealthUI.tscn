@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://1h31ew5mlc1"]
+
+[ext_resource type="Script" path="res://Components/Debug/DebugHealthUIComponent/temp_enemy_health_ui.gd" id="1_b5l6h"]
+
+[node name="DebugHealthUI" type="Label"]
+offset_left = 20.0
+offset_top = -17.0
+offset_right = 60.0
+offset_bottom = 9.0
+text = "0"
+script = ExtResource("1_b5l6h")
+metadata/_edit_use_anchors_ = true

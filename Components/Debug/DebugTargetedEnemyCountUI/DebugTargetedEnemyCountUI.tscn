@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://jr8vc1llf6mv"]
+
+[ext_resource type="Script" path="res://Components/Debug/DebugTargetedEnemyCountUI/debug_detected_enemy_count_component.gd" id="1_ajy5b"]
+
+[node name="DebugTargetEnemyCount" type="Label"]
+offset_left = -53.0
+offset_top = 25.0
+offset_right = 65.0
+offset_bottom = 51.0
+text = "# of Enemies: 0"
+script = ExtResource("1_ajy5b")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c43xy01ihmor6"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy_Spawner.gd" id="1_brb8m"]
+[ext_resource type="PackedScene" uid="uid://ca7ct1bmj6rgr" path="res://Prefab Scenes/enemy.tscn" id="2_s31ee"]
+
+[sub_resource type="Curve2D" id="Curve2D_0ewnt"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 66, 608, -62.5083, 63.5678, 62.5083, -63.5678, 121, 81, -57.211, -62.5083, 57.211, 62.5083, 348, 75, -75.2219, -38.1407, 75.2219, 38.1407, 369, 595, -48.7353, 39.2001, 48.7353, -39.2001, 591, 593, -68.8651, 49.7948, 68.8651, -49.7948, 647, 81, -63.5678, -38.1407, 63.5678, 38.1407, 859, 89, -59.3299, -43.438, 59.3299, 43.438, 856, 617, -40.2596, 46.6164, 40.2596, -46.6164, 1028, 610, 0, 0, 0, 0, 1095, 85)
+}
+point_count = 10
+
+[node name="Enemy_Spawner" type="Node2D"]
+script = ExtResource("1_brb8m")
+enemyToInstantiate = ExtResource("2_s31ee")
+
+[node name="Enemy_Path" type="Path2D" parent="."]
+position = Vector2(-2, -24)
+curve = SubResource("Curve2D_0ewnt")

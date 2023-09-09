@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://go1xnf3ogcov"]
+
+[ext_resource type="Script" path="res://Components/PathMoveComponent/path_move_component.gd" id="1_uetbd"]
+
+[node name="PathMoveComponent" type="Node2D"]
+script = ExtResource("1_uetbd")

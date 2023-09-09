@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpetjcrnwg7ct"]
+
+[ext_resource type="Script" path="res://Components/EntityTrackerComponent/target_tracker_component.gd" id="1_h3jc0"]
+[ext_resource type="Texture2D" uid="uid://c40fq5lrnlvf1" path="res://Sprites/icon.svg" id="2_ujfml"]
+
+[node name="TargetTrackerComponent" type="Node2D"]
+script = ExtResource("1_h3jc0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(60, -3.8147e-06)
+rotation = 1.5708
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_ujfml")

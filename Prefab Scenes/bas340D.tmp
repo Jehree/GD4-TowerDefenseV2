@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://ci2mdjrxeqko1"]
+
+[ext_resource type="PackedScene" uid="uid://cjt7ia2io1250" path="res://Components/DetectionAreaComponent/DetectionAreaComponent.tscn" id="1_jntw8"]
+[ext_resource type="Texture2D" uid="uid://cg46g73crgrwe" path="res://Sprites/turret base.png" id="2_fto28"]
+[ext_resource type="PackedScene" uid="uid://chpvfsl7u7vjc" path="res://Components/TargetAcquisitionComponent/TargetAcquisitionComponent.tscn" id="3_6h7n0"]
+[ext_resource type="Texture2D" uid="uid://csvnjbb835v6" path="res://Sprites/turret gun.png" id="3_ve3hw"]
+[ext_resource type="Script" path="res://Components/Debug/DebugTargetedEnemyCountUI/debug_detected_enemy_count_component.gd" id="4_0ciko"]
+[ext_resource type="PackedScene" uid="uid://bpetjcrnwg7ct" path="res://Components/EntityTrackerComponent/TargetTrackerComponent.tscn" id="6_y0x70"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bkdkl"]
+radius = 145.0
+
+[node name="BasicTurret" type="Node2D"]
+
+[node name="DebugTargetEnemyCount" type="Label" parent="."]
+offset_left = -53.0
+offset_top = 25.0
+offset_right = 65.0
+offset_bottom = 51.0
+text = "# of Enemies: 0"
+script = ExtResource("4_0ciko")
+
+[node name="DetectionAreaComponent" parent="." instance=ExtResource("1_jntw8")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionAreaComponent"]
+shape = SubResource("CircleShape2D_bkdkl")
+
+[node name="TargetAcquisitionComponent" parent="." node_paths=PackedStringArray("detectionAreaComponent") instance=ExtResource("3_6h7n0")]
+detectionAreaComponent = NodePath("../DetectionAreaComponent")
+
+[node name="TargetTrackerComponent" parent="." node_paths=PackedStringArray("targetAcquisitionComponent") instance=ExtResource("6_y0x70")]
+targetAcquisitionComponent = NodePath("../TargetAcquisitionComponent")
+
+[node name="TurretBaseSprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+scale = Vector2(3, 3)
+texture = ExtResource("2_fto28")
+
+[node name="TurretGunSprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -9)
+scale = Vector2(3, 3)
+texture = ExtResource("3_ve3hw")

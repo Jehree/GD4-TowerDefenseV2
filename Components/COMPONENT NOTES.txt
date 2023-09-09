@@ -1,0 +1,56 @@
+COMPONENT NOTES:
+
+Component Roles:
+	
+	THINKING:
+		This component is like a mini brain. It gathers information from SENSE
+		components and controls LIMB components.
+	
+	LIMB:
+		This component is a tool. It does things, but it needs to be controlled
+		by a THINKING component.
+		
+		If a LIMB component acts/ can act without a THINKING component controlling
+		it, call it an INDEPENDENT LIMB
+	
+	SENSE:
+		This component observes, gathers, and redistributes information. Ideally
+		it should should never control anything or perform any LIMB tool like 
+		actions.
+	
+	~HYBRID:
+		This role is used when a component doesn't perfectly fit one of the
+		roles above. Add any fitting roles to the role name, including names of 
+		other roles that are most fitting in order of: most alike -> least alike,
+		and make the role names lower case if they are only "sort of" fitting.
+	
+	Add the role names above to the script as a comment after the class name, or
+	otherwise near the top of the script
+	
+	Examples:
+		DetectionAreaComponent - this is a SENSE component. It doesn't control
+		anything, and doesn't act on anything in the scene. It only keeps track
+		of entities that are within its radius.
+		
+		TargetTrackerComponent - this is a LIMB component. It retains its ability
+		to do actions (turn and look) without aid, but it needs to be told WHEN
+		to do that and WHAT to look at by a THINKING component.
+		
+		TargetAcquisitionComponent - this is a THINKING component. It uses the
+		info the DetectionAreaComponent gathers to tell the TargetTrackerComponent
+		what to track.
+	
+	Exceptions, HYBRID components:
+		Some components may have multiple roles when it makes little sense to 
+		separate them into multiple components.
+		
+		HealthComponent - this is an example of a hybrid component. It most 
+		closely matches a LIMB component, because it has functionality to DO
+		things, like kill the entity if health reaches 0. It also stores info
+		regarding remaining health for other components to use, similar to a 
+		SENSE component, but it needs to be TOLD to update info by a THINKING
+		component. I would call the HealthComponent a "#LIMB, sense" component
+		
+		These roles aren't 100 percent static, and new ones could be added in
+		future as I learn, but I think having some role based way of thinking of
+		nodes helps to make sure one isn't becoming too multi-purpose.

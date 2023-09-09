@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://chpvfsl7u7vjc"]
+
+[ext_resource type="Script" path="res://Components/TargetAcquisitionComponent/target_acquisition_component.gd" id="1_lqnbd"]
+
+[node name="TargetAcquisitionComponent" type="Node2D"]
+script = ExtResource("1_lqnbd")
